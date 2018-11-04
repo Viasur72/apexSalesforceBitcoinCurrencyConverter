@@ -1,0 +1,45 @@
+<apex:page StandardController="Rate_Code__c" extensions="ConverterSupportClass" action="{!init}" lightningStylesheets="true" docType="html-5.0">
+    <apex:pageMessages id="errors"></apex:pageMessages>
+     
+       <apex:form id="currencyForm">
+         <apex:pageBlock mode="edit">
+             <apex:pageBlockSection title="Exchange Rate Converter" collapsible="false" columns="2">
+             
+              <!-- DROPDOWN FIELD ONE HERE -->
+              <apex:pageBlockSectionItem > 
+                <apex:selectList size="1" value="{!defaultCurrency}" multiselect="false" id="dropdownOne">
+                   <apex:actionSupport event="onchange" action="{!defaultCurrencyEntry}" rerender="entryValueTwo, panelbellow" />
+                   <apex:selectOptions value="{!CurrencyOptionsOne}" id="selection1"/>
+               </apex:selectList>                     
+            </apex:pageBlockSectionItem>
+              
+               <!-- ENTRY VALUE FIELD ONE HERE -->
+              <apex:pageBlockSectionItem >
+                <apex:input value="{!entryValueOne}" id="entryValueOne" type="number" style="width:200px;" >
+                <apex:actionSupport event="onkeyup" action="{!defaultCurrencyEntry}" rerender="entryValueTwo"/>
+                <apex:actionSupport event="onchange" action="{!defaultCurrencyEntry}" rerender="entryValueTwo"/>
+                </apex:input>
+             </apex:pageBlockSectionItem>   
+              
+                <!-- DROPDOWN FIELD TWO HERE -->
+              <apex:pageBlockSectionItem >
+                <apex:selectList size="1" value="{!secundaryCurrency}" multiselect="false" id="dropdownTwo">
+                    <apex:actionSupport event="onchange" action="{!secundaryCurrencyEntry}" rerender="entryValueOne, panelbellow"/>
+                   <apex:selectOptions value="{!CurrencyOptionsTwo}" id="selection2"/>
+                </apex:selectList>                
+            </apex:pageBlockSectionItem>
+              
+               <!-- ENTRY VALUE FIELD TWO HERE -->
+           <apex:pageBlockSectionItem >
+                <apex:input value="{!entryValueTwo}" id="entryValueTwo" type="number" style="width:200px;"  >
+                <apex:actionSupport event="onkeyup" action="{!secundaryCurrencyEntry}" rerender="entryValueOne"/>
+                <apex:actionSupport event="onchange" action="{!secundaryCurrencyEntry}" rerender="entryValueOne"/>
+                </apex:input>
+            </apex:pageBlockSectionItem>    
+          </apex:pageBlockSection>   
+              <!-- INFOR PANEL TO INFORM OF CURRENCIES SELECTED -->
+             <apex:outputPanel id="panelbellow">You are looking to currency exchanges between <i>{!defaultCurrency}</i> and <i>{!secundaryCurrency}</i></apex:outputPanel>
+          
+      </apex:pageBlock>
+  </apex:form>    
+</apex:page>
