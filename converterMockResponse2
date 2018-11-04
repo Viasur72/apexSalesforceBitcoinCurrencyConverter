@@ -1,0 +1,1 @@
+[{"code":"BTC","name":"Bitcoin","rate":1}],[{"code":"VND","name":"Vietnamese Dong","rate":164,776528}],[{"code":"AFN","name":"Afghan Afghani","rate":496,79773}],[{"code":"BCH","name":"Bitcoin Cash","rate":12,763562}],[{"code":"USD","name":"US Dollar","rate":6531,37}],[{"code":"EUR","name":"Eurozone Euro","rate":5690,07}]
