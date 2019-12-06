@@ -10,5 +10,4 @@ public class Codes {
     public String name{get;set;}
     public Decimal rate{get;set;}
 
-    
 }

@@ -1,50 +1,47 @@
 /*********************************************************************************************************
     Apex Class Name : TestDataCurrencyConverterCalloutClass
     Created By  : Carlos Naranjo (carlos.naranjo@ccloudonline.nl)
-    Description : Test Data Factory class for CurrencyConverteCalloutClassTest
+    Description : Test Data Factory class for CurrencyConverterCalloutClassTest
 *********************************************************************************************************/
-@isTest
-public class TestDataCurrencyConverterCalloutClass
-{
-    // Rate__Code__c records allready inserted 
-    public static List<Rate_Code__c> TestRateCodeRecordsInserted()
-    {
-       // Becasue we are not receiving a big ammount of records
-       // we inserted a small number of Rate Code records for our test
-       List<Rate_Code__c> rcList = new List<Rate_Code__c>();  
-       
-       Rate_Code__c afghan = new Rate_Code__c(name ='Afghan Afghani',
-                                               name__c     = 'Afghan Afghani',
-                                               rate__c     = 494.79893,
-                                               code__c     = 'AFN',
-                                               currency__c = 'Afghan Afghani (AFN)');
-       rcList.add(afghan); 
-        
-       Rate_Code__c bitcoin = new Rate_Code__c(name ='Bitcoin',
-                                                name__c     = 'Bitcoin',
-                                                rate__c     =  1,
-                                                code__c     = 'BTC',
-                                                currency__c = 'Bitcoin (BTC)');
-       rcList.add(bitcoin); 
-      
-       Rate_Code__c usDollar = new Rate_Code__c(name ='US Dollar',
-                                                name__c     = 'US Dollar',
-                                                rate__c     =  6.528,
-                                                code__c     = 'USD',
-                                                currency__c = 'US Dollar (USD)');
-       rcList.add(usDollar); 
-        
-       
-       Rate_Code__c dong = new Rate_Code__c(name ='Vietnamese Dong',
-                                             name__c     = 'Vietnamese Dong',
-                                             rate__c     =  151.737028,
-                                             code__c     = 'VND',
-                                             currency__c = 'Vietnamese Dong (VND)');
-       rcList.add(dong);
-                
-        
-       insert rcList;  
-        
-       return rcList;
+@IsTest
+public class TestDataCurrencyConverterCalloutClass {
+    // Rate__Code__c records already inserted
+    public static List<Rate_Code__c> TestRateCodeRecordsInserted() {
+        // Because we are not receiving a big amount of records
+        // we inserted a small number of Rate Code records for our test
+        List<Rate_Code__c> rcList = new List<Rate_Code__c>();
+
+        Rate_Code__c afghan = new Rate_Code__c(Name = 'Afghan Afghani',
+                Name__c = 'Afghan Afghani',
+                Rate__c = 494.79893,
+                Code__c = 'AFN',
+                Currency__c = 'Afghan Afghani (AFN)');
+        rcList.add(afghan);
+
+        Rate_Code__c bitcoin = new Rate_Code__c(Name = 'Bitcoin',
+                Name__c = 'Bitcoin',
+                Rate__c = 1,
+                Code__c = 'BTC',
+                Currency__c = 'Bitcoin (BTC)');
+        rcList.add(bitcoin);
+
+        Rate_Code__c usDollar = new Rate_Code__c(Name = 'US Dollar',
+                Name__c = 'US Dollar',
+                Rate__c = 6.528,
+                Code__c = 'USD',
+                Currency__c = 'US Dollar (USD)');
+        rcList.add(usDollar);
+
+        Rate_Code__c dong = new Rate_Code__c(Name = 'Vietnamese Dong',
+                Name__c = 'Vietnamese Dong',
+                Rate__c = 151.737028,
+                Code__c = 'VND',
+                Currency__c = 'Vietnamese Dong (VND)');
+        rcList.add(dong);
+
+
+        insert rcList;
+
+        return rcList;
     }
 }
