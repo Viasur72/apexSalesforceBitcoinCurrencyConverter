@@ -10,7 +10,7 @@
         <apex:pageBlockSectionItem>
           <apex:selectList size="1" value="{!defaultCurrency}" multiselect="false" id="dropdownOne">
             <apex:actionSupport event="onchange" action="{!defaultCurrencyEntry}"
-                                rerender="entryValueTwo, panelBellow"/>
+                                rerender="entryValueTwo, panelBelow"/>
             <apex:selectOptions value="{!CurrencyOptionsOne}" id="selection1"/>
           </apex:selectList>
         </apex:pageBlockSectionItem>
@@ -27,7 +27,7 @@
         <apex:pageBlockSectionItem>
           <apex:selectList size="1" value="{!secondaryCurrency}" multiselect="false" id="dropdownTwo">
             <apex:actionSupport event="onchange" action="{!secondaryCurrencyEntry}"
-                                rerender="entryValueOne, panelBellow"/>
+                                rerender="entryValueOne, panelBelow"/>
             <apex:selectOptions value="{!CurrencyOptionsTwo}" id="selection2"/>
           </apex:selectList>
         </apex:pageBlockSectionItem>
