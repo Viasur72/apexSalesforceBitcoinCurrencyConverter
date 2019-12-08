@@ -45,7 +45,8 @@ public without sharing class ConverterSupportClass {
             Map<String, Decimal> inSystemCodesMap = new Map<String, Decimal>();
             Map<String, Decimal> incomingCodesMap = new Map<String, Decimal>();
 
-            // Use these collections to insert new Rate_Code__c records based on new restCode Codes that are not in the system.
+            // Use these collections to insert new Rate_Code__c records based on new
+            // restCode Codes that are not in the system.
             Set<String> theIncomingKeysToInsert = new Set<String>();
             List<Rate_Code__c> codesList = new List<Rate_Code__c>();
 
@@ -108,7 +109,7 @@ public without sharing class ConverterSupportClass {
              * Inserting new Codes if any
             */
             try {
-                if (!newRateCodesToInsert.isEmpty() && (newRateCodesToInsert.size() > 0)) {
+                if (!newRateCodesToInsert.isEmpty() && newRateCodesToInsert.size() > 0) {
                     insert newRateCodesToInsert;
                 }
 
@@ -125,7 +126,7 @@ public without sharing class ConverterSupportClass {
                     WHERE Code__c IN :incomingCodesMap.keySet()
             ];
 
-            if ((!rc.isEmpty()) && (rc.size() > 0)) {
+            if (!rc.isEmpty() && rc.size() > 0) {
                 for (Rate_Code__c r : rc) {
                     if (r.Code__c != null && incomingCodesMap.containsKey(r.Code__c)) {
                         r.Rate__c = incomingCodesMap.get(r.Code__c);
@@ -194,9 +195,9 @@ public without sharing class ConverterSupportClass {
             entryValueTwo = 0;
         }
 
-        else if ((defaultCurrency == bitcoinBTC) &&
-                (secondaryCurrency != bitcoinBTC) &&
-                ((entryValueOne != 0) || (entryValueOne != null))) {
+        else if (defaultCurrency == bitcoinBTC &&
+                secondaryCurrency != bitcoinBTC &&
+                (entryValueOne != 0 || entryValueOne != null)) {
             bitcoinValue = entryValueOne;
 
             soqlEntryCurrencyOne = [
@@ -209,9 +210,9 @@ public without sharing class ConverterSupportClass {
             entryValueTwo = bitcoinValue * CalculationEntryValueTwo.setScale(3);
 
             // Actions for non Bitcoin currencies on defaultCurrency
-        } else if ((defaultCurrency != bitcoinBTC) &&
-                (secondaryCurrency != defaultCurrency) &&
-                ((entryValueOne != 0) || (entryValueOne != null))) {
+        } else if (defaultCurrency != bitcoinBTC &&
+                secondaryCurrency != defaultCurrency &&
+                (entryValueOne != 0 || entryValueOne != null)) {
 
             soqlEntryCurrencyOne = [
                     SELECT RateVsBitcoin__c, Currency__c
@@ -229,9 +230,9 @@ public without sharing class ConverterSupportClass {
             entryValueTwo = noBitcoinValue * soqlEntryCurrencyTwo.Rate__c.setScale(3);
 
             // If both currencies entries are equal, set both to same values
-        } else if ((defaultCurrency == secondaryCurrency) &&
-                (secondaryCurrency == defaultCurrency) &&
-                ((entryValueOne != 0) || (entryValueOne != null))) {
+        } else if (defaultCurrency == secondaryCurrency &&
+                secondaryCurrency == defaultCurrency &&
+                (entryValueOne != 0 || entryValueOne != null)) {
             entryValueOne = entryValueOne.setScale(3);
             entryValueTwo = entryValueOne.setScale(3);
         }
@@ -270,6 +271,7 @@ public without sharing class ConverterSupportClass {
                 (secondaryCurrency != defaultCurrency) &&
                 ((entryValueTwo != 0) || (entryValueTwo != null))) {
             noBitcoinValue = 0;
+
             soqlEntryCurrencyTwo = [
                     SELECT RateVsBitcoin__c, Currency__c
                     FROM Rate_Code__c
