@@ -250,7 +250,6 @@ private class CurrencyConverterCalloutClassTest {
 
     // This method test statement defaultCurrency != 'Bitcoin (BTC)' AND secondaryCurrency != 'Bitcoin (BTC)';      
     @IsTest static void runTestNoBtcVsNoBtc() {
-
         /* Getting records from Test Data Factory "TestDataCurrencyConverterCallotuClass"
          *
          *  rcList contains four records:
@@ -342,7 +341,6 @@ private class CurrencyConverterCalloutClassTest {
 
     // This method test statement defaultCurrency == secondaryCurrency  
     @IsTest static void runTestBothCurrenciesEquals() {
-
         /* Getting records from Test Data Factory "TestDataCurrencyConverterCallotuClass"
          *
          *  rcList contains four records: 
@@ -431,9 +429,9 @@ private class CurrencyConverterCalloutClassTest {
         Test.stopTest();
 
     }
+
     // This method test statement defaultCurrency != 'Bitcoin (BTC)' AND secondaryCurrency == 'Bitcoin (BTC)'; 
     @IsTest static void runTestNoBtcVsBtc() {
-
         /* Getting records from Test Data Factory "TestDataCurrencyConverterCalloutClass"
         *
         *  rcList contains four records: 
@@ -524,7 +522,6 @@ private class CurrencyConverterCalloutClassTest {
 
     // This method test if entry values one and two are behaving as expected with cero inputs 
     @IsTest static void runTestOnEntryValuesZeroInput() {
-
         /* Getting records from Test Data Factory "TestDataCurrencyConverterCalloutClass"
          *
          *  rcList contains four records: 
@@ -617,7 +614,6 @@ private class CurrencyConverterCalloutClassTest {
     }
 
     @IsTest static void runTestWithOtherUserProfile() {
-
         /* Getting records from Test Data Factory "TestDataCurrencyConverterCallotuClass"
         *
         *  rcList contains four records: 
