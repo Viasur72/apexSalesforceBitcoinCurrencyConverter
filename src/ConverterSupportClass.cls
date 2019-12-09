@@ -20,9 +20,7 @@ public without sharing class ConverterSupportClass {
     public Decimal CalculationEntryValueTwo;
     public String bitcoinBTC = 'Bitcoin (BTC)';
 
-    /*
-     * Sending request to end point to get currency values
-    */
+    // Sending request to end point to get currency values
     public static void init() {
         String endpoint = 'https://bitpay.com/api/rates/';
         HttpRequest req = new HttpRequest();
@@ -37,9 +35,8 @@ public without sharing class ConverterSupportClass {
             System.debug('The status code returned was not expected: '
                     + res.getStatusCode() + ' ' + res.getStatus());
         } else {
-            /* 
-             * Parsing code values from JSON string.
-            */
+
+            // Parsing code values from JSON string.
             List<Codes> restCode = (List<Codes>) JSON.deserialize(responseBody, List<Codes>.class);
             List<Rate_Code__c> inSystemCodesList = [SELECT Code__c, Rate__c FROM Rate_Code__c];
             Map<String, Decimal> inSystemCodesMap = new Map<String, Decimal>();
@@ -50,36 +47,28 @@ public without sharing class ConverterSupportClass {
             Set<String> theIncomingKeysToInsert = new Set<String>();
             List<Rate_Code__c> codesList = new List<Rate_Code__c>();
 
-            /*
-            * Adding Code__c and Rate__c values from SFDC to a map
-            */
+            // Adding Code__c and Rate__c values from SFDC to a map
             for (Integer c = 0; c < inSystemCodesList.size(); c++) {
                 inSystemCodesMap.put(inSystemCodesList[c].Code__c, inSystemCodesList[c].Rate__c);
             }
 
-            /*
-             * Adding code and rate values from JSON to a map
-            */
+            // Adding code and rate values from JSON to a map
             for (Integer i = 0; i < restCode.size(); i++) {
                 incomingCodesMap.put(restCode[i].code, restCode[i].rate);
             }
 
-            /*
-             * Iterate through codes that are already in the system
-            */
+            //Iterate through codes that are already in the system
             for (String k : inSystemCodesMap.keySet()) {
 
-                /*  If incoming Codes from GET response does not match with those in system, 
-                 *  send to collection for later processing
-                */
+                //  If incoming Codes from GET response does not match with those in system,
+                //  send to collection for later processing
                 if (!incomingCodesMap.keySet().contains(k)) {
                     theIncomingKeysToInsert.add(k);
                 }
             }
 
-            /*
-             * Inserting new Code/Rate/Currency if there is a new Code (Name, Rate, and Code) coming from the http response
-            */
+            // Inserting new Code/Rate/Currency if there is a new Code (Name, Rate, and Code)
+            // coming from the http response
             for (Integer i = 0; i < restCode.size(); i++) {
 
                 Rate_Code__c codeItem = new Rate_Code__c();
@@ -105,9 +94,7 @@ public without sharing class ConverterSupportClass {
                 }
             }
 
-            /*
-             * Inserting new Codes if any
-            */
+            //Inserting new Codes if any
             try {
                 if (!newRateCodesToInsert.isEmpty() && newRateCodesToInsert.size() > 0) {
                     insert newRateCodesToInsert;
@@ -117,9 +104,8 @@ public without sharing class ConverterSupportClass {
                 System.debug('The following exception has occurred when insert Rate Code records: ' + e.getMessage());
 
             }
-            /*
-             * Getting Rate_Code__c records from system and update them with the new rate from incomingCodesMap. 
-            */
+
+            //Getting Rate_Code__c records from system and update them with the new rate from incomingCodesMap.
             List<Rate_Code__c> rc = [
                     SELECT Id, Rate__c, Code__c, Name__c
                     FROM Rate_Code__c
@@ -134,35 +120,26 @@ public without sharing class ConverterSupportClass {
                 }
             }
 
-            /*
-             * Executing DML operation to update Rate__c for Rate_Code__c with news values from incomingCodesMap
-            */
+            //Executing DML operation to update Rate__c for Rate_Code__c with news values from incomingCodesMap
             try {
 
                 update rc;
 
             } catch (DmlException e) {
                 System.debug('The following exception has occurred when updating Rate Code records: ' + e.getMessage());
-
             }
         }
+
     }
 
-    /*
-     * Standard Controller
-    */
     public ConverterSupportClass(ApexPages.StandardController controller) {
 
-        /*
-         * Setting up default values for currency picklists
-        */
+        //Setting up default values for currency picklists
         defaultCurrency = bitcoinBTC;
         secondaryCurrency = 'US Dollar (USD)';
 
-        /*
-         * Querying Rate_Code__c object to obtain secondaryCurrency value and   
-         * setting it up as default value for the entryValueTwo field
-        */
+        // Querying Rate_Code__c object to obtain secondaryCurrency value and
+        // setting it up as default value for the entryValueTwo field
         rate = [
                 SELECT Rate__c, Currency__c
                 FROM Rate_Code__c
@@ -179,13 +156,12 @@ public without sharing class ConverterSupportClass {
         // Use DescribeFieldResult object to retrieve currency field.
         Schema.DescribeFieldResult statusFieldDescription = Rate_Code__c.Currency__c.getDescribe();
 
-        /* 
-         * For each picklist value, create a new select option
-        */
+        // For each picklist value, create a new select option
         for (Schema.PicklistEntry picklistEntry : statusFieldDescription.getPicklistValues()) {
             CurrencyOptionsOne.add(new SelectOption(picklistEntry.getValue(), picklistEntry.getLabel()));
             CurrencyOptionsTwo.add(new SelectOption(picklistEntry.getValue(), picklistEntry.getLabel()));
         }
+
     }
 
     // Method for event actions on 'dropdown field one' Id dropdownOne
@@ -238,11 +214,10 @@ public without sharing class ConverterSupportClass {
         }
 
         return null;
+
     }
 
-    /*
-     * Method for event actions on 'dropdown field one' Id dropdownTwo
-    */
+    // Method for event actions on 'dropdown field one' Id dropdownTwo
     public PageReference secondaryCurrencyEntry() {
 
         //If one currency entry is equal zero, set both to zero
