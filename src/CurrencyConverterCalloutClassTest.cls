@@ -62,6 +62,7 @@ private class CurrencyConverterCalloutClassTest {
         String responseBody = '[{"code":"BTC","name":"Bitcoin","rate":1},{"code":"VND","name":"Vietnamese Dong","rate":164.776528},{"code":"AFN","name":"Afghan Afghani","rate":496.79773},{"code":"BCH","name":"Bitcoin Cash","rate":12.763562},{"code":"USD","name":"US Dollar","rate":6531.37},{"code":"EUR","name":"Eurozone Euro","rate":5690.07}]';
         List<Codes> restCode = (List<Codes>) JSON.deserialize(responseBody, List<Codes>.class);
         System.debug(restCode.size());
+
         // We had four rate_Code__c records inserted in database, checking if we have six after second HTTP call
         System.assertEquals(6, restCode.size());
         System.debug(restCode);
@@ -120,12 +121,12 @@ private class CurrencyConverterCalloutClassTest {
         String responseBody = '[{"code":"","name":"New Zealand Dollar","rate":10159.894353}]';
         List<Codes> restCode = (List<Codes>) JSON.deserialize(responseBody, List<Codes>.class);
         System.debug(restCode.size());
+
         // We had four rate_Code__c records inserted in database, checking if it is the same after second HTTP call
         // with negative value entry on JOSN response
         System.assertEquals(1, restCode.size());
         System.debug(restCode);
         System.debug('This value should be four: (Negative Input Coming from JSON) :' + inSystemRateCodes.size());
-
 
         // Trying to insert a new Rate_Code__c record with missing Code__c
         List<Rate_Code__c> codesList = new List<Rate_Code__c>();
@@ -166,10 +167,12 @@ private class CurrencyConverterCalloutClassTest {
             }
         } catch (DmlException e) {
             System.debug('The following exception has occurred when inserting Rate Code records: ' + e.getMessage());
+
             // Assert that the error has been fired
             System.assert(e.getMessage().contains('Insert failed.'), 'Insert did not fire');
 
         }
+
         // Initially we had four records coming from the rcList and it should remain the same amount
         System.debug('It should remain four records after trying to insert missing data from JSON: ' + rcList.size() + 'records in database');
         System.assertEquals(4, rcList.size());
@@ -441,6 +444,7 @@ private class CurrencyConverterCalloutClassTest {
         List<Rate_Code__c> rcList = TestDataCurrencyConverterCalloutClass.TestRateCodeRecordsInserted();
 
         Test.startTest();
+
         // Instantiate the standard controller
         Rate_Code__c rc = new Rate_Code__c();
         ApexPages.StandardController sc = new ApexPages.StandardController(rc);
@@ -490,7 +494,7 @@ private class CurrencyConverterCalloutClassTest {
         System.assertEquals(1.0, ext.entryValueOne);
         System.assertEquals(ext.rate.Rate__c, ext.entryValueTwo);
 
-        // This should be givin Bitcoin RateVsBitcoin__c value
+        // This should be giving Bitcoin RateVsBitcoin__c value
         System.debug(ext.soqlEntryCurrencyOne.RateVsBitcoin__c);
 
         // Setting up new values for defaultCurrency and secondaryCurrency 
@@ -520,7 +524,7 @@ private class CurrencyConverterCalloutClassTest {
 
     }
 
-    // This method test if entry values one and two are behaving as expected with cero inputs 
+    // This method test if entry values one and two are behaving as expected with zero inputs
     @IsTest static void runTestOnEntryValuesZeroInput() {
         /* Getting records from Test Data Factory "TestDataCurrencyConverterCalloutClass"
          *
@@ -590,7 +594,7 @@ private class CurrencyConverterCalloutClassTest {
         System.assertEquals('Vietnamese Dong (VND)', ext.defaultCurrency);
         System.assertEquals('Bitcoin (BTC)', ext.secondaryCurrency);
 
-        // Debuging changes to defaultCurrency and secondaryCurrency
+        // Debugging changes to defaultCurrency and secondaryCurrency
         System.debug(ext.defaultCurrency);
         System.debug(ext.secondaryCurrency);
 
@@ -630,7 +634,6 @@ private class CurrencyConverterCalloutClassTest {
                 LocaleSidKey = 'en_US', ProfileId = p.Id,
                 TimeZoneSidKey = 'America/Los_Angeles', Username = 'standardTestCurrencyuser@testorg.com');
 
-
         // Instantiate the standard controller
         Rate_Code__c rc = new Rate_Code__c();
         ApexPages.StandardController sc = new ApexPages.StandardController(rc);
@@ -641,6 +644,7 @@ private class CurrencyConverterCalloutClassTest {
         Test.startTest();
 
         System.runAs(u) {
+
             // The following code runs as user 'u' 
             System.debug('Current User: ' + UserInfo.getUserName());
             System.debug('Current Profile: ' + UserInfo.getProfileId());
