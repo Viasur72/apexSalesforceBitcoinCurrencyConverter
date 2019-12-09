@@ -244,17 +244,16 @@ public without sharing class ConverterSupportClass {
      * Method for event actions on 'dropdown field one' Id dropdownTwo
     */
     public PageReference secondaryCurrencyEntry() {
-        /*
-         * If one currency entry is equal zero, set both to zero
-        */
-        if ((entryValueTwo == 0) || (entryValueTwo == null)) {
+
+        //If one currency entry is equal zero, set both to zero
+        if (entryValueTwo == 0 || entryValueTwo == null) {
             entryValueOne = 0;
             entryValueTwo = 0;
         }
 
-        else if ((secondaryCurrency == bitcoinBTC) &&
-                (defaultCurrency != bitcoinBTC) &&
-                ((entryValueTwo != 0) || (entryValueTwo != null))) {
+        else if (secondaryCurrency == bitcoinBTC &&
+                defaultCurrency != bitcoinBTC &&
+                (entryValueTwo != 0 || entryValueTwo != null)) {
             bitcoinValue = entryValueTwo;
 
             soqlEntryCurrencyTwo = [
@@ -267,9 +266,9 @@ public without sharing class ConverterSupportClass {
             entryValueOne = bitcoinValue * CalculationEntryValueTwo.setScale(3);
 
             // Actions for non Bitcoin currencies on secondaryCurrency
-        } else if ((secondaryCurrency != bitcoinBTC) &&
-                (secondaryCurrency != defaultCurrency) &&
-                ((entryValueTwo != 0) || (entryValueTwo != null))) {
+        } else if (secondaryCurrency != bitcoinBTC &&
+                secondaryCurrency != defaultCurrency &&
+                (entryValueTwo != 0 || entryValueTwo != null)) {
             noBitcoinValue = 0;
 
             soqlEntryCurrencyTwo = [
@@ -287,7 +286,7 @@ public without sharing class ConverterSupportClass {
             entryValueOne = noBitcoinValue * soqlEntryCurrencyOne.Rate__c.setScale(3);
 
             // If both currencies entries are equal, set both to same values
-        } else if ((secondaryCurrency == defaultCurrency) && (defaultCurrency == secondaryCurrency)) {
+        } else if (secondaryCurrency == defaultCurrency && defaultCurrency == secondaryCurrency) {
             entryValueTwo = entryValueTwo;
             entryValueOne = entryValueTwo;
         }
