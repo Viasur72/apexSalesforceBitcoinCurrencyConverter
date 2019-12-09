@@ -37,7 +37,7 @@ private class CurrencyConverterCalloutClassTest {
     }
 
     /*
-     * A HTTP Get method callout is done everytime we access the vf page Currency Converter
+     * A HTTP Get method callout is done every time we access the vf page Currency Converter
      * On every call we check for new Codes and changes on Rates values for existing Rate_Code__c 
     */
     @IsTest static void runTestCalloutToUpdateAndInsertNewCodes() {
@@ -160,9 +160,6 @@ private class CurrencyConverterCalloutClassTest {
             }
         }
 
-        /*
-         * Inserting new Codes if any
-        */
         try {
             if (!newRateCodesToInsert.isEmpty() && (newRateCodesToInsert.size() > 0)) {
                 insert newRateCodesToInsert;
@@ -192,9 +189,9 @@ private class CurrencyConverterCalloutClassTest {
         List<Rate_Code__c> rcList = TestDataCurrencyConverterCalloutClass.TestRateCodeRecordsInserted();
 
         Test.startTest();
+
         // Instantiate the standard controller
         Rate_Code__c rc = new Rate_Code__c();
-
         ApexPages.StandardController sc = new ApexPages.StandardController(rc);
 
         // Instantiate the extension
@@ -216,6 +213,7 @@ private class CurrencyConverterCalloutClassTest {
         ext.noBitcoinValue = ext.entryValueOne * ext.soqlEntryCurrencyOne.RateVsBitcoin__c;
         ext.CalculationEntryValueTwo = ext.soqlEntryCurrencyOne.Rate__c;
         ext.bitcoinBTC = 'Bitcoin (BTC)';
+
         // Asserts
         System.assertEquals(ext.CurrencyOptionsTwo, ext.CurrencyOptionsOne);
         System.assertEquals('Bitcoin (BTC)', ext.defaultCurrency);
@@ -225,13 +223,16 @@ private class CurrencyConverterCalloutClassTest {
         System.assertEquals(rcList.get(1).Currency__c, ext.soqlEntryCurrencyTwo.Currency__c);
         System.assertEquals(1, ext.entryValueOne);
         System.assertEquals('Bitcoin (BTC)', ext.bitcoinBTC);
+
         // Set test page passing initial parameters.
         PageReference ccPage = Page.CurrencyConverter;
+
         // Parameters
         ccPage.getParameters().put(ext.defaultCurrency, 'Bitcoin (BTC)');
         ccPage.getParameters().put(ext.secondaryCurrency, 'US Dollar (USD)');
         ccPage.getParameters().put(String.valueOf(ext.entryValueOne), String.valueOf(1.0));
         ccPage.getParameters().put(String.valueOf(ext.entryValueTwo), String.valueOf(ext.rate.Rate__c));
+
         // Asserts
         System.assertEquals('Bitcoin (BTC)', ext.defaultCurrency);
         System.assertEquals('US Dollar (USD)', ext.secondaryCurrency);
@@ -249,15 +250,17 @@ private class CurrencyConverterCalloutClassTest {
 
     // This method test statement defaultCurrency != 'Bitcoin (BTC)' AND secondaryCurrency != 'Bitcoin (BTC)';      
     @IsTest static void runTestNoBtcVsNoBtc() {
+
         /* Getting records from Test Data Factory "TestDataCurrencyConverterCallotuClass"
-          *
-          *  rcList contains four records: 
-          *  rcList.get(0) is equal to Afghan Afghani, (1) to Bitcoin, (2) to US Dollar, and (3) to Vietnamese Dong
-          *  This is used on System.asserts for all some of the methods in this class.
-          */
+         *
+         *  rcList contains four records:
+         *  rcList.get(0) is equal to Afghan Afghani, (1) to Bitcoin, (2) to US Dollar, and (3) to Vietnamese Dong
+         *  This is used on System.asserts for all some of the methods in this class.
+         */
         List<Rate_Code__c> rcList = TestDataCurrencyConverterCalloutClass.TestRateCodeRecordsInserted();
 
         Test.startTest();
+
         // Instantiate the standard controller
         Rate_Code__c rc = new Rate_Code__c();
         ApexPages.StandardController sc = new ApexPages.StandardController(rc);
@@ -281,6 +284,7 @@ private class CurrencyConverterCalloutClassTest {
         ext.noBitcoinValue = ext.entryValueOne * ext.soqlEntryCurrencyOne.RateVsBitcoin__c;
         ext.CalculationEntryValueTwo = ext.soqlEntryCurrencyOne.Rate__c;
         ext.bitcoinBTC = 'Bitcoin (BTC)';
+
         // Asserts
         System.assertEquals(ext.CurrencyOptionsTwo, ext.CurrencyOptionsOne);
         System.assertEquals('Bitcoin (BTC)', ext.defaultCurrency);
@@ -290,13 +294,16 @@ private class CurrencyConverterCalloutClassTest {
         System.assertEquals(rcList.get(1).Currency__c, ext.soqlEntryCurrencyTwo.Currency__c);
         System.assertEquals(1, ext.entryValueOne);
         System.assertEquals('Bitcoin (BTC)', ext.bitcoinBTC);
+
         // Set test page passing initial parameters.
         PageReference ccPage = Page.CurrencyConverter;
+
         // Parameters
         ccPage.getParameters().put(ext.defaultCurrency, 'Bitcoin (BTC)');
         ccPage.getParameters().put(ext.secondaryCurrency, 'US Dollar (USD)');
         ccPage.getParameters().put(String.valueOf(ext.entryValueOne), String.valueOf(1.0));
         ccPage.getParameters().put(String.valueOf(ext.entryValueTwo), String.valueOf(ext.rate.Rate__c));
+
         // Asserts
         System.assertEquals('Bitcoin (BTC)', ext.defaultCurrency);
         System.assertEquals('US Dollar (USD)', ext.secondaryCurrency);
@@ -324,18 +331,18 @@ private class CurrencyConverterCalloutClassTest {
         System.debug(ext.soqlEntryCurrencyOne);
         System.debug(ext.soqlEntryCurrencyTwo);
 
-
         ext.defaultCurrencyEntry();
         ext.secondaryCurrencyEntry();
-
 
         Test.setCurrentPage(ccPage);
 
         Test.stopTest();
 
     }
+
     // This method test statement defaultCurrency == secondaryCurrency  
     @IsTest static void runTestBothCurrenciesEquals() {
+
         /* Getting records from Test Data Factory "TestDataCurrencyConverterCallotuClass"
          *
          *  rcList contains four records: 
@@ -345,6 +352,7 @@ private class CurrencyConverterCalloutClassTest {
         List<Rate_Code__c> rcList = TestDataCurrencyConverterCalloutClass.TestRateCodeRecordsInserted();
 
         Test.startTest();
+
         // Instantiate the standard controller
         Rate_Code__c rc = new Rate_Code__c();
         ApexPages.StandardController sc = new ApexPages.StandardController(rc);
@@ -368,6 +376,7 @@ private class CurrencyConverterCalloutClassTest {
         ext.noBitcoinValue = ext.entryValueOne * ext.soqlEntryCurrencyOne.RateVsBitcoin__c;
         ext.CalculationEntryValueTwo = ext.soqlEntryCurrencyOne.Rate__c;
         ext.bitcoinBTC = 'Bitcoin (BTC)';
+
         // Asserts
         System.assertEquals(ext.CurrencyOptionsTwo, ext.CurrencyOptionsOne);
         System.assertEquals('Bitcoin (BTC)', ext.defaultCurrency);
@@ -377,13 +386,16 @@ private class CurrencyConverterCalloutClassTest {
         System.assertEquals(rcList.get(1).Currency__c, ext.soqlEntryCurrencyTwo.Currency__c);
         System.assertEquals(1, ext.entryValueOne);
         System.assertEquals('Bitcoin (BTC)', ext.bitcoinBTC);
+
         // Set test page passing initial parameters.
         PageReference ccPage = Page.CurrencyConverter;
+
         // Parameters
         ccPage.getParameters().put(ext.defaultCurrency, 'Bitcoin (BTC)');
         ccPage.getParameters().put(ext.secondaryCurrency, 'US Dollar (USD)');
         ccPage.getParameters().put(String.valueOf(ext.entryValueOne), String.valueOf(1.0));
         ccPage.getParameters().put(String.valueOf(ext.entryValueTwo), String.valueOf(ext.rate.Rate__c));
+
         // Asserts
         System.assertEquals('Bitcoin (BTC)', ext.defaultCurrency);
         System.assertEquals('US Dollar (USD)', ext.secondaryCurrency);
@@ -411,10 +423,8 @@ private class CurrencyConverterCalloutClassTest {
         System.debug(ext.soqlEntryCurrencyOne);
         System.debug(ext.soqlEntryCurrencyTwo);
 
-
         ext.defaultCurrencyEntry();
         ext.secondaryCurrencyEntry();
-
 
         Test.setCurrentPage(ccPage);
 
@@ -423,6 +433,7 @@ private class CurrencyConverterCalloutClassTest {
     }
     // This method test statement defaultCurrency != 'Bitcoin (BTC)' AND secondaryCurrency == 'Bitcoin (BTC)'; 
     @IsTest static void runTestNoBtcVsBtc() {
+
         /* Getting records from Test Data Factory "TestDataCurrencyConverterCalloutClass"
         *
         *  rcList contains four records: 
@@ -455,6 +466,7 @@ private class CurrencyConverterCalloutClassTest {
         ext.noBitcoinValue = ext.entryValueOne * ext.soqlEntryCurrencyOne.RateVsBitcoin__c;
         ext.CalculationEntryValueTwo = ext.soqlEntryCurrencyOne.Rate__c;
         ext.bitcoinBTC = 'Bitcoin (BTC)';
+
         // Asserts
         System.assertEquals(ext.CurrencyOptionsTwo, ext.CurrencyOptionsOne);
         System.assertEquals('Bitcoin (BTC)', ext.defaultCurrency);
@@ -464,13 +476,16 @@ private class CurrencyConverterCalloutClassTest {
         System.assertEquals(rcList.get(1).Currency__c, ext.soqlEntryCurrencyTwo.Currency__c);
         System.assertEquals(1, ext.entryValueOne);
         System.assertEquals('Bitcoin (BTC)', ext.bitcoinBTC);
+
         // Set test page passing initial parameters.
         PageReference ccPage = Page.CurrencyConverter;
+
         // Parameters
         ccPage.getParameters().put(ext.defaultCurrency, 'Bitcoin (BTC)');
         ccPage.getParameters().put(ext.secondaryCurrency, 'US Dollar (USD)');
         ccPage.getParameters().put(String.valueOf(ext.entryValueOne), String.valueOf(1.0));
         ccPage.getParameters().put(String.valueOf(ext.entryValueTwo), String.valueOf(ext.rate.Rate__c));
+
         // Asserts
         System.assertEquals('Bitcoin (BTC)', ext.defaultCurrency);
         System.assertEquals('US Dollar (USD)', ext.secondaryCurrency);
@@ -498,10 +513,8 @@ private class CurrencyConverterCalloutClassTest {
         System.debug(ext.soqlEntryCurrencyOne);
         System.debug(ext.soqlEntryCurrencyTwo);
 
-
         ext.defaultCurrencyEntry();
         ext.secondaryCurrencyEntry();
-
 
         Test.setCurrentPage(ccPage);
 
@@ -511,6 +524,7 @@ private class CurrencyConverterCalloutClassTest {
 
     // This method test if entry values one and two are behaving as expected with cero inputs 
     @IsTest static void runTestOnEntryValuesZeroInput() {
+
         /* Getting records from Test Data Factory "TestDataCurrencyConverterCalloutClass"
          *
          *  rcList contains four records: 
@@ -520,6 +534,7 @@ private class CurrencyConverterCalloutClassTest {
         List<Rate_Code__c> rcList = TestDataCurrencyConverterCalloutClass.TestRateCodeRecordsInserted();
 
         Test.startTest();
+
         // Instantiate the standard controller
         Rate_Code__c rc = new Rate_Code__c();
         ApexPages.StandardController sc = new ApexPages.StandardController(rc);
@@ -543,6 +558,7 @@ private class CurrencyConverterCalloutClassTest {
         ext.noBitcoinValue = ext.entryValueOne * ext.soqlEntryCurrencyOne.RateVsBitcoin__c;
         ext.CalculationEntryValueTwo = ext.soqlEntryCurrencyOne.Rate__c;
         ext.bitcoinBTC = 'Bitcoin (BTC)';
+
         // Asserts
         System.assertEquals(ext.CurrencyOptionsTwo, ext.CurrencyOptionsOne);
         System.assertEquals('Bitcoin (BTC)', ext.defaultCurrency);
@@ -552,13 +568,16 @@ private class CurrencyConverterCalloutClassTest {
         System.assertEquals(rcList.get(1).Currency__c, ext.soqlEntryCurrencyTwo.Currency__c);
         System.assertEquals(1, ext.entryValueOne);
         System.assertEquals('Bitcoin (BTC)', ext.bitcoinBTC);
+
         // Set test page passing initial parameters.
         PageReference ccPage = Page.CurrencyConverter;
+
         // Parameters
         ccPage.getParameters().put(ext.defaultCurrency, 'Bitcoin (BTC)');
         ccPage.getParameters().put(ext.secondaryCurrency, 'US Dollar (USD)');
         ccPage.getParameters().put(String.valueOf(ext.entryValueOne), String.valueOf(1.0));
         ccPage.getParameters().put(String.valueOf(ext.entryValueTwo), String.valueOf(ext.rate.Rate__c));
+
         // Asserts
         System.assertEquals('Bitcoin (BTC)', ext.defaultCurrency);
         System.assertEquals('US Dollar (USD)', ext.secondaryCurrency);
@@ -588,10 +607,8 @@ private class CurrencyConverterCalloutClassTest {
         ext.entryValueOne = 0;
         ext.entryValueTwo = 0;
 
-
         ext.defaultCurrencyEntry();
         ext.secondaryCurrencyEntry();
-
 
         Test.setCurrentPage(ccPage);
 
@@ -600,6 +617,7 @@ private class CurrencyConverterCalloutClassTest {
     }
 
     @IsTest static void runTestWithOtherUserProfile() {
+
         /* Getting records from Test Data Factory "TestDataCurrencyConverterCallotuClass"
         *
         *  rcList contains four records: 
@@ -648,6 +666,7 @@ private class CurrencyConverterCalloutClassTest {
             ext.noBitcoinValue = ext.entryValueOne * ext.soqlEntryCurrencyOne.RateVsBitcoin__c;
             ext.CalculationEntryValueTwo = ext.soqlEntryCurrencyOne.Rate__c;
             ext.bitcoinBTC = 'Bitcoin (BTC)';
+
             // Asserts
             System.assertEquals(ext.CurrencyOptionsTwo, ext.CurrencyOptionsOne);
             System.assertEquals('Bitcoin (BTC)', ext.defaultCurrency);
@@ -657,13 +676,16 @@ private class CurrencyConverterCalloutClassTest {
             System.assertEquals(rcList.get(1).Currency__c, ext.soqlEntryCurrencyTwo.Currency__c);
             System.assertEquals(1, ext.entryValueOne);
             System.assertEquals('Bitcoin (BTC)', ext.bitcoinBTC);
+
             // Set test page passing initial parameters.
             PageReference ccPage = Page.CurrencyConverter;
+
             // Parameters
             ccPage.getParameters().put(ext.defaultCurrency, 'Bitcoin (BTC)');
             ccPage.getParameters().put(ext.secondaryCurrency, 'US Dollar (USD)');
             ccPage.getParameters().put(String.valueOf(ext.entryValueOne), String.valueOf(1.0));
             ccPage.getParameters().put(String.valueOf(ext.entryValueTwo), String.valueOf(ext.rate.Rate__c));
+
             // Asserts
             System.assertEquals('Bitcoin (BTC)', ext.defaultCurrency);
             System.assertEquals('US Dollar (USD)', ext.secondaryCurrency);
@@ -693,10 +715,8 @@ private class CurrencyConverterCalloutClassTest {
             ext.entryValueOne = 0;
             ext.entryValueTwo = 0;
 
-
             ext.defaultCurrencyEntry();
             ext.secondaryCurrencyEntry();
-
 
             Test.setCurrentPage(ccPage);
 
