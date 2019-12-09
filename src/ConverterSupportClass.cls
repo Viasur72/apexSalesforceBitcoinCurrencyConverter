@@ -207,7 +207,6 @@ public without sharing class ConverterSupportClass {
 
             // If both currencies entries are equal, set both to same values
         } else if (defaultCurrency == secondaryCurrency &&
-                secondaryCurrency == defaultCurrency &&
                 (entryValueOne != 0 || entryValueOne != null)) {
             entryValueOne = entryValueOne.setScale(3);
             entryValueTwo = entryValueOne.setScale(3);
@@ -261,7 +260,7 @@ public without sharing class ConverterSupportClass {
             entryValueOne = noBitcoinValue * soqlEntryCurrencyOne.Rate__c.setScale(3);
 
             // If both currencies entries are equal, set both to same values
-        } else if (secondaryCurrency == defaultCurrency && defaultCurrency == secondaryCurrency) {
+        } else if (secondaryCurrency == defaultCurrency) {
             entryValueTwo = entryValueTwo;
             entryValueOne = entryValueTwo;
         }
